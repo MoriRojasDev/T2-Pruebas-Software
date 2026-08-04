@@ -4,10 +4,15 @@ import edu.pe.cibertec.saucedemo.questions.TheProductDetail;
 import edu.pe.cibertec.saucedemo.questions.TheProductPrice;
 import edu.pe.cibertec.saucedemo.tasks.ClickOnProduct;
 import edu.pe.cibertec.saucedemo.tasks.SortProducts;
+import edu.pe.cibertec.saucedemo.ui.ProductDetailPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import net.serenitybdd.screenplay.actors.OnStage;
+import net.serenitybdd.screenplay.playwright.questions.Text;
+import net.serenitybdd.screenplay.questions.Visibility;
+import net.serenitybdd.screenplay.targets.Target;
 
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.Matchers.*;
 
@@ -44,22 +49,24 @@ public class ProductStepDefinitions {
     @Then("she should see the product name {string}")
     public void sheShouldSeeTheProductName(String productName) {
         OnStage.theActorInTheSpotlight().should(
-                seeThat(TheProductDetail.name(), equalTo(productName))
+                seeThat(Text.of(ProductDetailPage.PRODUCT_NAME), equalTo(productName))
         );
     }
 
     @And("she should see the product price {string}")
     public void sheShouldSeeTheProductPrice(String productPrice) {
         OnStage.theActorInTheSpotlight().should(
-                seeThat(TheProductDetail.price(), equalTo(productPrice))
+                seeThat(Text.of(ProductDetailPage.PRODUCT_PRICE), equalTo(productPrice))
         );
     }
 
     @And("she should see the Add to cart button")
-    public void heShouldSeeTheAddToCartButton() {
+    public void sheShouldSeeTheAddToCartButton() {
         OnStage.theActorInTheSpotlight().should(
-                seeThat(TheProductDetail.addToCartButtonIsVisible(), is(true))
+                seeThat(Visibility.of(Target.the("Add to cart button")
+                        .locatedBy(ProductDetailPage.ADD_TO_CART_BUTTON)))
         );
     }
+
 
 }
