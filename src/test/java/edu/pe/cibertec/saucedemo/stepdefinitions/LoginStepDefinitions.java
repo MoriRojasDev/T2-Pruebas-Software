@@ -4,12 +4,15 @@ import edu.pe.cibertec.saucedemo.questions.TheErrorMessage;
 import edu.pe.cibertec.saucedemo.questions.ThePageTitle;
 import edu.pe.cibertec.saucedemo.tasks.LoginAs;
 import edu.pe.cibertec.saucedemo.tasks.OpenTheLoginPage;
+import edu.pe.cibertec.saucedemo.ui.InventoryPage;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.playwright.abilities.BrowseTheWebWithPlaywright;
+import net.serenitybdd.screenplay.playwright.questions.Text;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static org.hamcrest.Matchers.*;
@@ -31,16 +34,16 @@ public class LoginStepDefinitions {
     }
 
     @Then("she should be redirect to the inventory page")
-    public void shouldBeRedirectedToInventoryPage() {
+    public void sheShouldBeRedirectToInventoryPage() {
         OnStage.theActorInTheSpotlight().should(
-                seeThat(ThePageTitle.displayed(), equalTo("Products"))
+                seeThat(Text.of(InventoryPage.PAGE_TITLE), equalTo("Products"))
         );
     }
 
-    @Then("she should see the page title {string}")
-    public void shouldSeeThePageTitle(String pageTitle) {
+    @And("she should see the page title {string}")
+    public void sheShouldSeePageTitle(String titulo) {
         OnStage.theActorInTheSpotlight().should(
-                seeThat(ThePageTitle.displayed(), equalTo(pageTitle))
+                seeThat(Text.of(InventoryPage.PAGE_TITLE), equalTo(titulo))
         );
     }
 

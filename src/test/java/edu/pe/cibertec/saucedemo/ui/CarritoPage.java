@@ -8,6 +8,7 @@ public class CarritoPage {
 
     public static Target CART_ITEMS = Target.the("cart items")
             .located(By.className("inventory_item_name"));
+    public static Target CART_LINK;
 
     public static Target REMOVE_BUTTON(String producto) {
         return Target.the("remove button for " + producto)
